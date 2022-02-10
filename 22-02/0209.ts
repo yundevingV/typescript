@@ -1,7 +1,7 @@
 Module export import 
 
 #모듈 (Module)
-: 자주 사용되는 함수, 클래스 등을 미리 선언하고 > exoprt를 사용해서 끌어 쓴다.
+: 자주 사용되는 함수, 클래스 등을 미리 선언하고 exoprt를 사용해서 끌어 쓴다.
 
 #export 키워드
 

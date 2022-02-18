@@ -125,7 +125,7 @@ typescripte는 다중 패러다임 언어라고 한다.
 if(조건식)
     실행문
     
-if와 같은 구문은 다음처럼 조건을 만족하면 단순히 하눚ㄹ의 실행문만을 실행하는 형태로 설계된다.
+if와 같은 구문은 다음처럼 조건을 만족하면 단순히 한줄의 실행문만을 실행하는 형태로 설계된다.
 이런 설계가 가능한 이유는 복학 실행문 이라는 또 다른 형태를 함께 제공하기 때문이다. {}을 이용한다.
 
 if(조건식) {
@@ -133,3 +133,60 @@ if(조건식) {
 }
 
 복합 실행문은 컴파일러가 여러 실행문을 한개로 인식한다. 
+
+◆return 키워드◆
+
+실행문 기반 언어에서는 결과를 알려주지 않아 return 키워드를 사용해 결과를 반환한다.
+
+function isGreater (a : number , b : number) : boolean { 
+    return a>b
+}
+
+#콜백함수
+
+일등함수는 프로그래밍 언어가 제공하는 기능이다. 일등함수기능을 제공하는 언어에서는 함수는 '함수 표현식' 이라는 일종의 값이다.
+따라서 변수에 담을 수 있다.
+이 말은 함수 표현식을 매개변수로 받을 수 있다는 것을 의미한다.
+매개변수 형태로 동작하는 함수를 콜백함수(callback function)이라고 한다.
+
+const f = (callback : () => void) : void => callback()
+
+함수 f 에서 callback 이라는 매개 변수가 있는데, 함수 몸통에서 함수로서 호출했다.
+
+init.ts
+
+export const init = (callback : () => void) : void => {
+    console.log('default initialization finished.')
+    callback()
+    console.log('all initialization finished.')
+}
+
+index.ts
+
+import {init} from './init'
+
+init( () => console.log('custom initalization finished'))
+>>>
+default initialization finished.
+custom initalization finished
+all initialization finished.
+
+실행 결과를 보면 init함수가 자신의 몸통 뿐만 아니라 외부의 함수도 출력 시켰다.
+
+//중첩함수
+
+함수형 언어에서 함수는 변수에 담긴 함수 표현식이므로 함수 안에 또 다른 함수를 중첩할 수 있습니다.
+
+const calc = (value : number , cb: (number) => void) : void => {
+    let add = (a :number , b : number) => a + b
+    let multiple = (a : number, b : number) : number => a*b
+
+    let result = multiple(add(1,2),value)
+
+    cb(result)
+}
+
+calc(30,(result : number) => console.log(`result is ${result}`) )
+
+calc함수 안에 add, multiple 함수 두개가 중첩되어있다.
+

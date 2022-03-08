@@ -133,3 +133,73 @@ for(let age of [1,2,3,4]){
 }
     
 아이템값만이 필요할때는 for of문이 더 좋을 수 도 있습니다.
+
+
+※제네릭 방식 타입
+
+Generic(제네릭)이란?
+    
+제네릭은 데이터의 타입을 일반화 한다는 뜻이다.
+제네릭은 자료형을 정하지 않고 여러 타입을 사용할 수 있게 해준다.
+선언 시점이 아니라 생성 시점에 타입을 명시하여 하나의 타입이 아닌 다양한 타입을 쓸 수 있게 해준다.
+
+배열을 다룰때 number[]와 같이 고정된 함수를 만들기 보다는 T[]을 이용해 한꺼번에 표현하는것이 편하다.
+
+const arrayLength = (array) => array.array.length
+    
+배열의 길이를 나타내는 함수를 선언한다.
+
+const arrayLength = (array : T[]) : number => array.length
+    
+ 배열의 타입 주석을 T[]로 표현한다.
+ 
+const arrayLength = <T>(array : T[]) : number => array.length
+const isEmpty = <T>(array : T[]) : boolean => arrayLength<T>(array) == 0
+
+ 여기서 <T>는 Type의 약자 이다.
+
+const arrayLength = <T>(array : T[]) : number => array.length
+const isEmpty = <T>(array : T[]) : boolean => arrayLength<T>(array) == 0
+
+let numArray : number[]= [1,2,3,4]
+let stringArray : string[] = ['Hello', 'World']
+type IPerson = {name : string, age ?: number}
+let personArray : IPerson[] = [{'name' : 'jack'}, {'name' : 'Kane' , 'age' : 23}]
+
+console.log(
+    arrayLength(numArray),
+    arrayLength(stringArray),
+    arrayLength(personArray),
+    isEmpty([]),
+    isEmpty([1,2,3,4]),
+    isEmpty(numArray)
+)
+
+※제네릭 함수의 타입 추론
+
+함수이름<타입 변수>(매개변수)
+
+이렇게 명시해 줍니다.
+
+const identity = <T>(n : T): T => n
+
+console.log(
+    identity<boolean>(true)
+)
+    
+※전개 연산자
+
+let array1 = [1,2]
+let array2 = [3]
+
+let mergedArray =[...array1, ...array2, 4]
+console.log(mergedArray)
+    
+배열에서도 전개연산자를 이용해 배열끼리 합칠 수 있습니다.
+
+※range 함수 구현
+
+const range = (from : number, to : number): number[] =>
+    from < to ? [from, ...range(from +1,to)] : []
+
+console.log(range(1,100+1))

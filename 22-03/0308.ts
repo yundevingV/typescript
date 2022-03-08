@@ -68,3 +68,68 @@ console.log(
     join(['h','e','l','l','o']),
     join(['h','e','l','l','o'], '_')
 )
+
+#인덱스 연산자
+
+배열이 담고 있는 아이템 중 특정 위치에 있는 아이템을 얻고자 할때 인덱스 연산자를 이용합니다.
+
+const number : number[] = [1,2,3,4,5]
+
+for(let i=0;i < number.length; i++){
+    const item : number = number[i]
+    console.log(item)
+}
+
+const str : string[] = ['h','e','l','l','o']
+
+for(let i=0;i < str.length; i++){
+    const item : string = str[i]
+    console.log(item)
+}
+
+#배열의 비구조화 할당
+
+배열에서도 비구조화 할당을 적용할 수 있다.
+
+let array : number[] = [1,2,3,4,5]
+
+let [first, second, third, ...rest] = array
+
+console.log(first,second,third,rest)
+
+#for ...in문
+
+for(변수 in 객체){
+    ...
+}
+    
+let names :string[] = ['Jane', 'Kane', 'James']
+
+for(let i in names){
+    const name :string = names[i]
+    console.log(`${i} : ${names[i]}`)
+}
+
+배열의 인덱스 값을 순회한다.
+
+let jack = {name:'Jack',age:15}
+
+for(let i in jack){
+    console.log(`${i} : ${jack[i]}`)
+}
+    
+jack이라는 객체를 순회합니다.
+
+#for ...of 문
+
+for(let 변수 of 객체) {
+    ...
+}
+    
+let age = [1,2,3,4]
+
+for(let age of [1,2,3,4]){
+    console.log(age)
+}
+    
+아이템값만이 필요할때는 for of문이 더 좋을 수 도 있습니다.

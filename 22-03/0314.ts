@@ -1,4 +1,4 @@
-#순수 함수와 배열
+#순수 함수와 배열와 튜플
 
 ※순수함수란?
 
@@ -141,4 +141,23 @@ const mergeArray2 : number[] =mergeArray([1],[2],[23],[4])
 console.log(mergeArray1,mergeArray2)
 
 제네릭타입을 사용해 모든 타입을 받을 수 있었고 가변인수함수라 갯수는 상관없이 순수함수를 생성할 수 있다.
+
+※튜플
+
+let tuple : any[] = [true, 'Ok']
+
+any[]타입을 이용해서 여러가지 타입을 담을 수 있다.
+
+let numberTuple : number[] = [1,2,3,4]
+let doubleTuple : [boolean,string] = [true , 'Hello']
+
+이렇게 여러가지 타입도 담아서 만들 수 있다.
+
+type TupleType = [boolean, string]
+
+let doubleTuple : TupleType = [true , 'Hello']
+
+이렇게 타입 지정할 수도 있다.
+
+
 

@@ -87,4 +87,58 @@ const afterSort = pureSort(beforeSort)
 
 console.log(beforeSort,afterSort)
   
- sort메서드를 이용해도 깊은복사가 된다.
+sort메서드를 이용해도 깊은복사가 된다.
+
+※배열의 filter 메서드와 순수한 삭제.
+
+배열에서 아이템을 삭제할 때 splice를 사용한다.
+그런데 splice는 원본 배열의 내용을 변경하므로 순수 함수에서는 사용불가하다.
+//splice(x,n) = index=x 부터 n개 지우는 메서드
+filter메서드를 이용하면 원본을 헤치지않고 조건에 맞지않는 아이템을 삭제할 수 있다.
+
+const pureDelete = <T>(array : readonly T[], cb: (val : T, index ?: number) =>
+boolean) : T[] => array.filter((val,index) => cb(val, index) == false)
+//callbakc = cb 콜백을 줄여서 cb라고 하는거같다
+const mixedArray : object[] = [
+    [], {'name' : 'jack'}, {'name' : 'kane' , 'age': 5},['asd']
+]
+
+const objectOnly : object[] =pureDelete(mixedArray, (val) => Array.isArray(val))
+
+console.log(mixedArray,objectOnly)
+
+이렇게하면 원본을 헤치지않고 원하지않는 아이템을 삭제할 수 있다.
+
+※가변 인수 함수와 순수 함수
+
+가변 인수란?
+함수를 호출할 때 인수의 개수를 제한하지않는 것.
+
+const mergeArray = <T>(...arrays : readonly T[][]) : T[] => {
+    let result : T[] = []
+    for(let i=0;i<arrays.length;i++){
+        const array : T[] = arrays[i]  
+        result = [...result, ...array]
+        //result를 먼저 전개하고 array를 전개하고 같이 병합하면 [1,2,3 ...] 순으로 담을 수 있다.
+    }
+    return result
+}
+
+mergeArray라는 가변인수함수를 만들었다.
+
+const mergeArray = <T>(...arrays : readonly T[][]) : T[] => {
+    let result : T[] = []
+    for(let i=0;i<arrays.length;i++){
+        const array : T[] = arrays[i]  
+        result = [...result, ...array]
+    }
+    return result
+}
+
+const mergeArray1 : string[] =mergeArray(['t'],['a']) 
+const mergeArray2 : number[] =mergeArray([1],[2],[23],[4])
+
+console.log(mergeArray1,mergeArray2)
+
+제네릭타입을 사용해 모든 타입을 받을 수 있었고 가변인수함수라 갯수는 상관없이 순수함수를 생성할 수 있다.
+
